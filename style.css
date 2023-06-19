@@ -1,34 +1,129 @@
 :root {
-    --color-yellow: #f6bd60;
-    --color-linen: #f7ede2;
-    --color-rose: #f5cac3;
-    --color-blue: #84a59d;
-    --color-coral: #f28482;
+    --color-blue: #4357AD;
+    --color-green: #48A9A6;
+    --color-timberwood: #E4DFDA;
+    --color-yellow: #D4B483;
+    --color-red: #C1666B;
+    --border: 3px solid white;
 }
 
-* {
+/* * {
     border: 2px solid red;
+} */
+
+#library {
+    padding: 5rem;
+    grid-area: 2/1/3/2;
+    background-color: var(--color-green);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+    gap: 5rem;
+}
+
+.book {
+    display: flex;
+    background-color: var(--color-blue);
+    color: var(--color-timberwood);
+    flex-flow: column;
+    height: fit-content;
+    align-items: center;
+    justify-content: space-evenly;
+    border: var(--border);
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px black;
+    font-size: 1.6rem;
+}
+
+.book>div,
+.book>button {
+    padding: 10px;
+    margin: 10px;
+}
+
+ul {
+    margin: 0px;
+    padding: 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+    justify-items: center;
+}
+
+ul>button {
+    padding: 10px 20px;
 }
 
 body {
-    background-color: var(--color-linen);
+    font-family: 'Gabriela', serif;
+    font-size: 1.3rem;
+}
+
+.newGenre {
+    display: none;
+}
+
+article {
     display: grid;
-    grid-template: 100px 1fr 50px / 3fr 1fr;
-    height: 100svh;
+    grid-template: 100px 1fr 50px / 1fr 500px;
+    height: 100vh;
 }
 
 header {
     grid-area: 1/1/2/3;
+    background-color: var(--color-red);
+    border-bottom: var(--border);
+
 }
 
-#display {
-    grid-area: 2/1/3/2;
-}
 
 #create {
     grid-area: 2/2/3/3;
+    background-color: var(--color-yellow);
+    border-left: var(--border);
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 2rem;
+    margin: 25px 10px;
+    align-items: center;
+}
+
+
+#btnSideBar,
+button {
+    margin-top: auto;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.btnsForm {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2rem;
 }
 
 footer {
     grid-area: 3/1/3/4;
+    background-color: var(--color-timberwood);
+    border-top: var(--border);
+}
+
+header,
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input,
+select {
+    padding: 10px;
 }

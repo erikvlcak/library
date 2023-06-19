@@ -8,25 +8,83 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../normalize.css">
     <script src="script.js" async></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
 
-    <header>
-        <div>Library</div>
-    </header>
+    <article>
+        <header>
+            <h1>My personal library</h1>
+        </header>
 
-    <section id="display">
-        <div>Main area</div>
-    </section>
+        <section id="library">
+            <div class="book">
+                <div class="bookTitle">Title</div>
+                <div class="bookAuthor">Author</div>
+                <div class="bookPages">Pages</div>
+                <div class="bookGenre">Genre</div>
+                <button>Read</button>
+                <button>Remove</button>
+            </div>
+        </section>
 
-    <section id='create'>
-        <div>Add new</div>
-    </section>
+        <section id="create">
+            <h2>Add new book</h2>
+            <form action="" method="post">
+                <fieldset>
+                    <legend>Details about new book</legend>
+                    <ul>
+                        <label for="newTitle">Title</label>
+                        <input type="text" name="newTitle" id="newName" placeholder="Title of new book" required>
+                        <label for="newAuthor">Author</label>
+                        <input type="text" name="newAuthor" id="newAuthor" placeholder="Author of new book" required>
+                        <label for="pages">Pages</label>
+                        <input type="number" name="pages" id="newPages" placeholder="Number of pages" required>
+                        <label for="genre">Genre</label>
+                        <select name="genre" id="genre">
+                            <option value="actionAdventure" selected>Action and Adventure</option>
+                            <option value="comic">Comic Book</option>
+                            <option value="detective">Detective and Mystery</option>
+                            <option value="erotic">Erotic Novel</option>
+                            <option value="fantasy">Fantasy</option>
+                            <option value="historical">Historical Fiction</option>
+                            <option value="horror">Horror</option>
+                            <option value="scifi">Science Fiction</option>
+                            <option value="youngAdults">Young Adults</option>
+                            <option value="other">Other...</option>
+                        </select>
+                        <label for="newGenre" class="newGenre">Add genre</label>
+                        <input type="text" name="newGenre" id="newGenre" class="newGenre">
+                    </ul>
+                </fieldset>
 
-    <footer>
-        <div>Created by Erik</div>
-    </footer>
+
+                <fieldset>
+                    <legend>Have you read it?</legend>
+                    <ul>
+                        <button type="button">Yes</button>
+                        <button type="button">No</button>
+                    </ul>
+                </fieldset>
+
+                <div class="btnsForm">
+                    <button>Add New Book</button>
+                    <button type="reset">Reset</button>
+                </div>
+
+            </form>
+            <button id="btnSideBar">Hide sidebar</button>
+        </section>
+
+        <footer>
+            <div>Created by Erik</div>
+        </footer>
+    </article>
+
 
 </body>
 
