@@ -1,0 +1,34 @@
+:root {
+    --color-yellow: #f6bd60;
+    --color-linen: #f7ede2;
+    --color-rose: #f5cac3;
+    --color-blue: #84a59d;
+    --color-coral: #f28482;
+}
+
+* {
+    border: 2px solid red;
+}
+
+body {
+    background-color: var(--color-linen);
+    display: grid;
+    grid-template: 100px 1fr 50px / 3fr 1fr;
+    height: 100svh;
+}
+
+header {
+    grid-area: 1/1/2/3;
+}
+
+#display {
+    grid-area: 2/1/3/2;
+}
+
+#create {
+    grid-area: 2/2/3/3;
+}
+
+footer {
+    grid-area: 3/1/3/4;
+}
