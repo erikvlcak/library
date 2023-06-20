@@ -22,43 +22,33 @@
         </header>
 
         <section id="library">
-            <div class="book">
-                <div class="bookTitle">Title</div>
-                <div class="bookAuthor">Author</div>
-                <div class="bookPages">Pages</div>
-                <div class="bookGenre">Genre</div>
-                <button>Read</button>
-                <button>Remove</button>
-            </div>
         </section>
 
-        <section id="create">
+        <!-- add class hidden -->
+        <section class="create ">
             <h2>Add new book</h2>
             <form action="" method="post">
                 <fieldset>
                     <legend>Details about new book</legend>
-                    <ul>
+                    <ul class="formItems">
                         <label for="newTitle">Title</label>
-                        <input type="text" name="newTitle" id="newName" placeholder="Title of new book" required>
+                        <input type="text" name="title" id="newTitle" placeholder="Title of new book" required>
                         <label for="newAuthor">Author</label>
-                        <input type="text" name="newAuthor" id="newAuthor" placeholder="Author of new book" required>
-                        <label for="pages">Pages</label>
+                        <input type="text" name="author" id="newAuthor" placeholder="Author of new book" required>
+                        <label for="newPages">Pages</label>
                         <input type="number" name="pages" id="newPages" placeholder="Number of pages" required>
-                        <label for="genre">Genre</label>
-                        <select name="genre" id="genre">
-                            <option value="actionAdventure" selected>Action and Adventure</option>
-                            <option value="comic">Comic Book</option>
-                            <option value="detective">Detective and Mystery</option>
-                            <option value="erotic">Erotic Novel</option>
-                            <option value="fantasy">Fantasy</option>
-                            <option value="historical">Historical Fiction</option>
-                            <option value="horror">Horror</option>
-                            <option value="scifi">Science Fiction</option>
-                            <option value="youngAdults">Young Adults</option>
-                            <option value="other">Other...</option>
+                        <label for="newGenre">Genre</label>
+                        <select name="genre" id="newGenre">
+                            <option value="Action and Adventure" selected>Action and Adventure</option>
+                            <option value="Comic Book">Comic Book</option>
+                            <option value="Detective and Mystery">Detective and Mystery</option>
+                            <option value="Erotic Novel">Erotic Novel</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Historical Fiction">Historical Fiction</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Science Fiction">Science Fiction</option>
+                            <option value="Young Adults">Young Adults</option>
                         </select>
-                        <label for="newGenre" class="newGenre">Add genre</label>
-                        <input type="text" name="newGenre" id="newGenre" class="newGenre">
                     </ul>
                 </fieldset>
 
@@ -72,13 +62,14 @@
                 </fieldset>
 
                 <div class="btnsForm">
-                    <button>Add New Book</button>
-                    <button type="reset">Reset</button>
+                    <button class="btnAddBook">Add Book to Library</button>
+                    <button type="reset" class="btnResetForm">Reset</button>
                 </div>
 
             </form>
-            <button id="btnSideBar">Hide sidebar</button>
         </section>
+
+        <button class="btnSideBar">Add New Book</button>
 
         <footer>
             <div>Created by Erik</div>
