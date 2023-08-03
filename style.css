@@ -1,11 +1,13 @@
 :root {
-    --color-blue: #5f74d1;
+    --color-blue: #7586d1;
     --color-green: #48A9A6;
     --color-timberwood: #f7eeee;
     --color-yellow: #D4B483;
     --color-red: #C1666B;
     --border-thin: 3px solid white;
     --border-thick: 8px solid white;
+    font-family: 'Gabriela', serif;
+    box-sizing: border-box;
 }
 
 /* * {
@@ -14,69 +16,95 @@
 
 body {
     background-color: var(--color-green);
-    font-family: 'Gabriela', serif;
+
     font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
 
-.btnsReadIt {
+/* .btnsReadIt {
     display: flex;
     justify-content: center;
     gap: 30px;
     margin: 20px 0px;
     font-size: 1.5rem;
-}
+} */
 
 #library {
-    padding: 5rem;
+    padding: 1rem;
     grid-area: 2/1/3/2;
     background-color: var(--color-green);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 400px));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 20%));
     gap: 3rem;
+    justify-content: center;
+    align-items: baseline;
+    justify-items: center;
+
 }
 
 .book {
     display: flex;
-    background-color: #6aa8a6;
+    position: relative;
+    background-color: #6aa8a600;
     color: var(--color-timberwood);
     flex-flow: column;
     height: fit-content;
-    width: fit-content;
+    width: 60%;
     align-items: flex-start;
     overflow: auto;
     justify-content: space-evenly;
     border: var(--border-thick);
     border-radius: 20px;
-    box-shadow: 10px 10px 20px black;
+    box-shadow: 10px 10px 10px black;
     font-size: 2rem;
     text-shadow: black 2px 2px;
     white-space: pre-line;
     padding: 30px;
+    margin: 30px 0px;
     font-weight: 900;
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.book:hover {
+    background-color: #27a7a2;
+    box-shadow: 20px 20px 40px black;
+}
+
+.topSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .book>.titleText,
 .book>.authorText,
 .book>.pagesText,
 .book>.genreText,
-.book>.bookNumber {
+.bookNumber,
+.book>.readingStatus {
     color: var(--color-yellow);
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-top: 20px;
 }
 
-.book>.btnRead,
-.book>.btnRemoveBook {
+.book>.btnChangeReadStatusBook {
     align-self: center;
     width: min-content;
     white-space: pre;
 }
 
-.book>.bookNumber {
-    margin-top: 0px;
-    margin-bottom: 30px;
+/* .btnRemoveBook {
+    align-self: center;
+    margin-left: auto;
+} */
 
+.bookNumber {
+    margin: 15px 0px;
+    font-size: 2.5rem;
 }
 
 
@@ -90,7 +118,7 @@ body {
     margin-bottom: 10px;
 }
 
-.btnRead {
+.btnChangeReadStatusBook {
     width: fit-content;
     margin-bottom: 20px;
 }
@@ -106,10 +134,76 @@ form {
 
 legend {
     font-size: 1.8rem;
+    color: white;
+    text-shadow: black 2px 2px;
 }
 
 .formItems>label {
-    padding: 30px 0px;
+    padding: 15px 0px;
+}
+
+.btnsReadIt {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+    margin: 20px 20px;
+    font-size: 1.5rem;
+    place-content: center;
+}
+
+.readYes {
+    grid-area: 1 / 1 / 2 / 2;
+
+    width: 80%;
+}
+
+.readNo {
+    grid-area: 1 / 2 / 2 / 3;
+
+    width: 80%;
+}
+
+.labelCurrentPage {
+    grid-area: 2/1/3/3;
+}
+
+#currentPage {
+    grid-area: 3 / 1 / 4 / 3;
+    margin-top: 0px;
+    width: 70px;
+    place-self: stretch center;
+    font-size: 1.5rem;
+}
+
+.progressBar {
+    height: 61.6px;
+    width: 90%;
+    border: 5px solid white;
+    border-top: 0px;
+    border-bottom: 0px;
+    align-self: center;
+    margin-bottom: 20px;
+    position: relative;
+
+    z-index: 0;
+}
+
+.progress {
+    background-color: var(--color-yellow);
+    height: 100%;
+    width: 90%;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: none;
+    font-size: 2.5rem;
+    position: relative;
+
+    z-index: 1;
 }
 
 ul {
@@ -127,7 +221,7 @@ ul>button {
 }
 
 .formItems {
-    margin: 20px 0px;
+    /* margin: 10px 0px; */
     color: white;
     font-size: 1.5rem;
     text-shadow: black 2px 2px 5px;
@@ -135,7 +229,7 @@ ul>button {
 
 .create {
     grid-area: 2/2/3/3;
-    grid-template-columns: 1fr 500px;
+
     background-color: var(--color-yellow);
     border-left: var(--border-thin);
     display: flex;
@@ -143,6 +237,7 @@ ul>button {
     align-items: center;
     position: relative;
     font-weight: bold;
+    justify-content: space-between;
 }
 
 .newGenre,
@@ -152,9 +247,10 @@ ul>button {
 
 article {
     display: grid;
-    grid-template-rows: auto 1fr 50px;
-    grid-template-columns: 1fr 500px;
+    grid-template-rows: 15% 1fr 5%;
+    grid-template-columns: 1fr minmax(330px, 550px);
     height: 100vh;
+    position: relative;
 }
 
 header {
@@ -164,35 +260,48 @@ header {
     color: white;
     text-shadow: black 2px 2px 5px;
     font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 
 }
 
 h2 {
-    position: fixed;
+    margin: 0px;
     font-size: 3rem;
     text-shadow: black 2px 2px 5px;
     color: white;
+    position: relative;
 }
 
 form {
     display: flex;
     flex-flow: column wrap;
     gap: 2rem;
-    margin: 100px 10px;
+    margin: 0px 10px;
     align-items: center;
-    position: fixed;
+    position: sticky;
+    top: 10px;
+    /* position: fixed;
+    justify-content: space-evenly;
+    height: fit-content; */
 }
 
 
-.btnSideBar,
 button {
-    margin-top: auto;
-    margin-bottom: 1rem;
+    /* margin-top: auto;
+    margin-bottom: 1rem; */
     font-size: 2rem;
     border-radius: 10px;
     padding: 10px;
     border: var(--border-thin);
     box-shadow: 2px 2px 5px black;
+}
+
+.btnAddBook,
+.btnResetForm {
+    color: white;
 }
 
 .btnAddBook {
@@ -207,25 +316,17 @@ button {
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 2rem;
+
 }
 
 footer {
     grid-area: 3/1/3/4;
+
     background-color: var(--color-timberwood);
     border-top: var(--border-thin);
-}
-
-header,
-footer {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-input,
-select {
-    padding: 10px;
-    width: fit-content
 }
 
 #newPages {
@@ -233,12 +334,33 @@ select {
 }
 
 .btnSideBar {
-    position: fixed;
-    bottom: 50px;
-    right: 20px;
-    width: 300px;
-    background-image: linear-gradient(45deg, var(--color-green), var(--color-blue));
+    /* position: fixed;
+    top: 50px;
+    right: 50px;
+    width: 300px; */
+
+    background-color: var(--color-green);
     color: white;
     box-shadow: 5px 5px 10px black;
     border: var(--border-thin);
+    padding: 20px 50px;
+    font-size: 2.5rem;
+    position: fixed;
+    bottom: 100px;
+    right: 40px;
+    z-index: 2;
+    width: 400px;
+
+
+}
+
+input,
+select,
+fieldset {
+    border-radius: 15px;
+    border: var(--border-thin);
+    box-shadow: black 3px 3px 5px;
+    padding: 10px;
+    width: fit-content;
+    font-size: 1.5rem;
 }
