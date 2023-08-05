@@ -67,7 +67,9 @@ function createLibrary() {
         let readBtn = document.createElement('button');
         let removeBtn = document.createElement('button');
         let progressBar = document.createElement('div');
-        let progress = document.createElement('div');
+        let progressNumbers = document.createElement('div');
+        let progress = document.createElement('div')
+        let progressUpdateBtn = document.createElement('button');
 
         bookDiv.classList.add('book');
 
@@ -124,24 +126,27 @@ function createLibrary() {
             readBtn.textContent = 'Finished!';
             bookDiv.appendChild(readBtn);
         } else if (item.readStatus == 0) {
+            progressUpdateBtn.classList.add('btnChangeProgress');
+            progressUpdateBtn.textContent = 'Update progress'
+            topSection.appendChild(progressUpdateBtn);
             progressBar.classList.add('progressBar');
+            progressNumbers.classList.add('progressNumbers');
+            progressNumbers.setAttribute('contenteditable', 'true');
             progress.classList.add('progress');
-            progressBar.textContent = `${item.currentPage} / ${item.pages}`;
-            progress.style.width = ((item.currentPage / 100) * item.pages) + '%';
-            progressBar.appendChild(progress);
-            bookDiv.appendChild(progressBar);
-
+            progressNumbers.textContent = `${item.currentPage} / ${item.pages}`;
+            progressBar.style.width = calculateProgress(item.currentPage, item.pages);
+            progress.appendChild(progressBar);
+            progress.appendChild(progressNumbers);
+            bookDiv.appendChild(progress);
         }
 
-
-
-
-
         libraryDisplay.appendChild(bookDiv);
-
     }
 }
 
+function calculateProgress(currentPage, totalPages) {
+    return ((currentPage / totalPages) * 100) + '%';
+}
 
 
 addBook.addEventListener('click', (e) => {
@@ -192,37 +197,51 @@ btnHideSide.addEventListener('click', (e) => {
 })
 
 
+//remove specific book via btnRemoveBook
 libraryDisplay.addEventListener('mouseenter', () => {
     if (library) {
         libraryDisplay.querySelectorAll('.btnRemoveBook').forEach(item => {
             item.addEventListener('click', (e) => {
-                e.stopPropagation();
-                let deletedId = e.target.parentElement.querySelector('.bookNumber').textContent.slice(1);
-                library.splice(deletedId - 1, 1);
-
-                let libraryCopy = [];
-                let newId = 1;
-                let index = 0;
-                for (let book of library) {
-                    libraryCopy.push(book)
-                    libraryCopy[index].id = newId;
-                    newId++;
-                    index++;
-                }
-
-                library.length = 0;
-
-                for (let item of libraryCopy) {
-                    library.push(item);
-                }
-
-                libraryCopy.length = 0;
-
-                libraryDisplay.innerHTML = '';
-
-                createLibrary();
+                removeBook(e)
             })
         })
 
     }
+    libraryDisplay.querySelectorAll('.btnChangeProgress').forEach(item => {
+        item.addEventListener('click', (e) => {
+            changeProgress(e);
+        })
+    })
 })
+
+function removeBook(e) {
+    e.stopPropagation();
+    let deletedId = e.target.parentElement.querySelector('.bookNumber').textContent.slice(1);
+    library.splice(deletedId - 1, 1);
+
+    let libraryCopy = [];
+    let newId = 1;
+    let index = 0;
+    for (let book of library) {
+        libraryCopy.push(book)
+        libraryCopy[index].id = newId;
+        newId++;
+        index++;
+    }
+
+    library.length = 0;
+
+    for (let book of libraryCopy) {
+        library.push(book);
+    }
+
+    libraryCopy.length = 0;
+
+    libraryDisplay.innerHTML = '';
+
+    createLibrary();
+}
+
+function changeProgress(e) {
+    console.log('chcem zmenit progress');
+}
