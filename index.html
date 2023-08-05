@@ -27,19 +27,19 @@
         <section class="create hidden">
             <form action="" method="post">
                 <h2>Add new book</h2>
-                <fieldset>
+                <fieldset class="fieldAdd">
                     <legend>Details about your book</legend>
                     <ul class="formItems">
                         <label for="newTitle">Title</label>
-                        <input type="text" name="title" id="newTitle" placeholder="Title of new book" required />
+                        <input type="text" name="title" id="newTitle" required />
                         <label for="newAuthor">Author</label>
-                        <input type="text" name="author" id="newAuthor" placeholder="Author of new book" required />
+                        <input type="text" name="author" id="newAuthor" required />
                         <label for="newGenre">Genre</label>
                         <select name="genre" id="newGenre">
                             <option value="Action Adventure" selected>
                                 Action Adventure
                             </option>
-                            <option value="Comic">Comic Book</option>
+                            <option value="Comic" con>Comic Book</option>
                             <option value="Detective">Detective</option>
                             <option value="Drama">Drama</option>
                             <option value="Erotic">Erotic Novel</option>
@@ -60,7 +60,7 @@
                         <button type="button" class="readYes">Yes</button>
                         <button type="button" class="readNo">No</button>
                         <label for="currentPage" class="labelCurrentPage">On which page are you now?</label>
-                        <input type="number" id="currentPage" name="currentPage" placeholder="0" />
+                        <input type="number" id="currentPage" name="currentPage" placeholder="0" disabled />
                     </ul>
                 </fieldset>
 
@@ -74,7 +74,6 @@
         <footer>
             <div>Created by Erik</div>
         </footer>
-
     </article>
 </body>
 
