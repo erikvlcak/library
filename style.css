@@ -110,8 +110,6 @@ body {
 }
 
 
-
-
 .readingStatus {
     align-self: center;
     font-size: 1.3rem;
@@ -148,6 +146,82 @@ body {
 
 form {
     padding: 50px 20px;
+}
+
+dialog {
+    background-color: var(--color-blue);
+    border-radius: 15px;
+    border: var(--border-thin);
+    box-shadow: black 10px 10px 20px;
+    padding: 20px 30px;
+    height: fit-content;
+    width: fit-content;
+    flex-flow: column wrap;
+    align-items: center;
+    gap: 20px;
+}
+
+.dialogHeader {
+    margin-bottom: 40px;
+}
+
+dialog>fieldset:first-of-type {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+dialog>fieldset:last-of-type {
+    display: grid;
+    grid-template: 1fr 1fr / 2fr 1fr;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+
+
+.dialogHeader,
+.dialogButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.dialogHeader>.header {
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: black 2px 2px;
+}
+
+.changeSave {
+    width: 50%;
+}
+
+.changeClose {
+    width: fit-content;
+}
+
+.progressOld,
+.progressNew {
+    justify-self: end;
+    margin-right: 20px;
+}
+
+.numberPageOld,
+#numberPageNew {
+    justify-self: center;
+}
+
+dialog>div:not(.progressOld),
+dialog>button {
+    padding: 10px;
+}
+
+dialog::backdrop {
+    background-color: #f7eeee;
+    opacity: 0.5;
 }
 
 legend {
@@ -250,7 +324,9 @@ ul>button {
     padding: 10px 20px;
 }
 
-.formItems {
+.formItems,
+dialog>div,
+dialog>label {
     /* margin: 10px 0px; */
     color: white;
     font-size: 1.5rem;
@@ -330,15 +406,19 @@ button {
 }
 
 .btnAddBook,
-.btnResetForm {
+.btnResetForm,
+.changeClose,
+.changeSave {
     color: white;
 }
 
-.btnAddBook {
+.btnAddBook,
+.changeSave {
     background-color: var(--color-green);
 }
 
-.btnResetForm {
+.btnResetForm,
+.changeClose {
     background-color: var(--color-red);
 }
 
@@ -365,10 +445,7 @@ footer {
 }
 
 .btnSideBar {
-    /* position: fixed;
-    top: 50px;
-    right: 50px;
-    width: 300px; */
+
 
     background-color: var(--color-green);
     color: white;
@@ -381,23 +458,30 @@ footer {
     left: 0;
     margin-left: auto;
     margin-right: auto;
-    top: 16%;
+    top: 50%;
+    /* previously 16% */
     z-index: 2;
     width: 400px;
 
 
 }
 
-input,
-select,
+.formItems>input,
+.formItems>select,
 .fieldAdd,
-.fieldFinished {
+.fieldFinished,
+#numberPageNew {
     border-radius: 15px;
     border: var(--border-thin);
     box-shadow: black 3px 3px 5px;
     padding: 10px;
     width: fit-content;
     font-size: 1.5rem;
+}
+
+#numberPageNew {
+    width: 70px;
+    text-align: center;
 }
 
 /* .fieldAdd,

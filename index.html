@@ -59,7 +59,7 @@
                     <ul class="btnsReadIt">
                         <button type="button" class="readYes">Yes</button>
                         <button type="button" class="readNo">No</button>
-                        <label for="currentPage" class="labelCurrentPage">On which page are you now?</label>
+                        <label for="currentPage" class="labelCurrentPage">On which page are you currently?</label>
                         <input type="number" id="currentPage" name="currentPage" placeholder="0" disabled />
                     </ul>
                 </fieldset>
@@ -70,6 +70,44 @@
                 </div>
             </form>
         </section>
+
+        <dialog>
+            <div class="dialogHeader">
+                <div class="header">Update reading progress</div>
+                <div class="bookSummary">Book info</div>
+            </div>
+
+            <fieldset>
+                <legend>What has changed?</legend>
+                <button class="progressFinished">
+                    Finished the book!
+                </button>
+                <button class="progressChanged">
+                    Made a progress
+                </button>
+            </fieldset>
+
+            <fieldset>
+                <legend>Set new reading milestone</legend>
+                <div class="progressOld">
+                    Previous milestone:
+                </div>
+                <div class="numberPageOld">123</div>
+
+                <label class="progressNew" for="numberPageNew">Enter new milestone: </label>
+                <input type="number" name="newCurrentPage" id="numberPageNew">
+            </fieldset>
+
+            <div class="dialogButtons">
+                <button class="changeSave">
+                    Save change
+                </button>
+                <button class="changeClose">
+                    Return
+                </button>
+            </div>
+
+        </dialog>
 
         <footer>
             <div>Created by Erik</div>
