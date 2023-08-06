@@ -4,6 +4,7 @@ let btnHideSide = document.querySelector('.btnSideBar');
 let addBook = document.querySelector('.btnAddBook');
 let libraryDisplay = document.querySelector('#library');
 let library = [];
+let dialog = document.querySelector('dialog')
 
 let newTitle = document.querySelector('#newTitle');
 let newAuthor = document.querySelector('#newAuthor');
@@ -23,7 +24,30 @@ function BookTemplate(id, title, author, pages, genre, readStatus, currentPage) 
     this.currentPage = currentPage;
 }
 
+BookTemplate.prototype.deleteBook = function (deletedIndex) {
+    library.splice(deletedIndex, 1);
+    let libraryCopy = [];
+    let newId = 1;
+    let index = 0;
+    for (let book of library) {
+        libraryCopy.push(book)
+        libraryCopy[index].id = newId;
+        newId++;
+        index++;
+    }
+    library.length = 0;
+    for (let book of libraryCopy) {
+        library.push(book);
+    }
+    libraryCopy.length = 0;
+    libraryDisplay.innerHTML = '';
+}
 
+BookTemplate.prototype.changeProgress = function () {
+    dialog.showModal();
+}
+
+//change styles of 'have you finished reading' items
 newReadStatus.forEach(item => {
     item.addEventListener('click', (e) => {
         if (e.target.classList.contains('readYes')) {
@@ -46,6 +70,63 @@ newReadStatus.forEach(item => {
     })
 })
 
+//add new book as an object to library array via BookTemplate constructor function
+addBook.addEventListener('click', (e) => {
+    e.preventDefault();
+    let id = library.length + 1;
+    let title = newTitle.value;
+    let author = newAuthor.value;
+    let pages = newPages.value;
+    let genre = newGenre.value;
+    let readStatus = newReadSelected;
+    let currentPage = newCurrentPage.value;
+    let newBook = new BookTemplate(id, title, author, pages, genre, readStatus, currentPage);
+    library.push(newBook);
+    libraryDisplay.innerHTML = '';
+    createLibrary();
+    clearValues();
+})
+
+//show or hide sidebar
+btnHideSide.addEventListener('click', (e) => {
+
+    let sidebar = document.querySelector('.create');
+
+    if (sidebar.classList.contains('hidden')) {
+        sidebar.classList.remove('hidden')
+        e.target.textContent = 'Hide Sidebar';
+    } else {
+        sidebar.classList.add('hidden');
+        e.target.textContent = 'Add New Book';
+    }
+
+})
+
+
+//remove specific book via btnRemoveBook or change progress via btnChangeProgress
+libraryDisplay.addEventListener('mouseenter', () => {
+    if (library) {
+        document.querySelectorAll('.book').forEach(item => {
+            item.querySelector('.btnRemoveBook').addEventListener('click', (e) => {
+                e.stopPropagation();
+                library[getBookIndex(e)].deleteBook(getBookIndex(e));
+                createLibrary();
+            })
+            // item.querySelector('.btnChangeProgress').addEventListener('click', (e) => {
+            //     e.stopPropagation();
+            //     library[getBookIndex(e)].changeProgress();
+            // })
+        })
+    }
+})
+
+function calculateProgress(currentPage, totalPages) {
+    return ((currentPage / totalPages) * 100) + '%';
+}
+
+function getBookIndex(e) {
+    return e.target.parentElement.querySelector('.bookNumber').textContent.slice(1) - 1;
+}
 
 function createLibrary() {
 
@@ -144,104 +225,12 @@ function createLibrary() {
     }
 }
 
-function calculateProgress(currentPage, totalPages) {
-    return ((currentPage / totalPages) * 100) + '%';
-}
-
-
-addBook.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    let id = library.length + 1;
-    let title = newTitle.value;
-    let author = newAuthor.value;
-    let pages = newPages.value;
-    let genre = newGenre.value;
-    let readStatus = newReadSelected;
-    let currentPage = newCurrentPage.value;
-    let newBook = new BookTemplate(id, title, author, pages, genre, readStatus, currentPage);
-    library.push(newBook);
-    libraryDisplay.innerHTML = '';
-    createLibrary();
-    clearValues();
-    console.table(library)
-})
-
 function clearValues() {
     newTitle.value = '';
     newAuthor.value = '';
     newPages.value = '';
 }
 
-// function clearReading
-
-
-
-
-
-
-
-
-btnHideSide.addEventListener('click', (e) => {
-
-    let sidebar = document.querySelector('.create');
-
-    if (sidebar.classList.contains('hidden')) {
-        sidebar.classList.remove('hidden')
-        e.target.textContent = 'Hide Sidebar';
-    } else {
-        sidebar.classList.add('hidden');
-        e.target.textContent = 'Add New Book';
-    }
-
+dialog.querySelector('.changeClose').addEventListener('click', (e) => {
+    dialog.close();
 })
-
-
-//remove specific book via btnRemoveBook
-libraryDisplay.addEventListener('mouseenter', () => {
-    if (library) {
-        libraryDisplay.querySelectorAll('.btnRemoveBook').forEach(item => {
-            item.addEventListener('click', (e) => {
-                removeBook(e)
-            })
-        })
-
-    }
-    libraryDisplay.querySelectorAll('.btnChangeProgress').forEach(item => {
-        item.addEventListener('click', (e) => {
-            changeProgress(e);
-        })
-    })
-})
-
-function removeBook(e) {
-    e.stopPropagation();
-    let deletedId = e.target.parentElement.querySelector('.bookNumber').textContent.slice(1);
-    library.splice(deletedId - 1, 1);
-
-    let libraryCopy = [];
-    let newId = 1;
-    let index = 0;
-    for (let book of library) {
-        libraryCopy.push(book)
-        libraryCopy[index].id = newId;
-        newId++;
-        index++;
-    }
-
-    library.length = 0;
-
-    for (let book of libraryCopy) {
-        library.push(book);
-    }
-
-    libraryCopy.length = 0;
-
-    libraryDisplay.innerHTML = '';
-
-    createLibrary();
-}
-
-function changeProgress(e) {
-    console.log('chcem zmenit progress');
-}
