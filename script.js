@@ -43,9 +43,18 @@ BookTemplate.prototype.deleteBook = function (deletedIndex) {
     libraryDisplay.innerHTML = '';
 }
 
-BookTemplate.prototype.changeProgress = function () {
-    dialog.showModal();
-}
+// BookTemplate.prototype.changeProgress = function (changedIndex) {
+//     dialog.showModal();
+//     let milestone = dialog.querySelector('fieldset:last-of-type');
+//     milestone.addEventListener('click', () => {
+//         if (milestone.style.getAttribute('display', 'none')) {
+//             milestone.style.display = 'grid';
+//             console.log('hehe')
+//         } else {
+//             milestone.style.display = 'none';
+//         }
+//     })
+// }
 
 //change styles of 'have you finished reading' items
 newReadStatus.forEach(item => {
@@ -102,23 +111,21 @@ btnHideSide.addEventListener('click', (e) => {
 
 })
 
-
-//remove specific book via btnRemoveBook or change progress via btnChangeProgress
 libraryDisplay.addEventListener('mouseenter', () => {
     if (library) {
         document.querySelectorAll('.book').forEach(item => {
-            item.querySelector('.btnRemoveBook').addEventListener('click', (e) => {
-                e.stopPropagation();
-                library[getBookIndex(e)].deleteBook(getBookIndex(e));
-                createLibrary();
-            })
-            // item.querySelector('.btnChangeProgress').addEventListener('click', (e) => {
-            //     e.stopPropagation();
-            //     library[getBookIndex(e)].changeProgress();
-            // })
-        })
+            item.addEventListener('click', (e) => {
+                if (e.target.classList.contains('btnRemoveBook')) {
+                    library[getBookIndex(e)].deleteBook(getBookIndex(e));
+                    createLibrary();
+                } else if (e.target.classList.contains('btnChangeProgress')) {
+                    library[getBookIndex(e)].changeProgress(getBookIndex(e));
+                }
+            });
+        });
     }
-})
+});
+
 
 function calculateProgress(currentPage, totalPages) {
     return ((currentPage / totalPages) * 100) + '%';

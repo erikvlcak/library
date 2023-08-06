@@ -173,12 +173,19 @@ dialog>fieldset:first-of-type {
 }
 
 dialog>fieldset:last-of-type {
-    display: grid;
     grid-template: 1fr 1fr / 2fr 1fr;
     align-items: center;
     margin-bottom: 40px;
+    display: none;
 }
 
+#displayNone {
+    display: none;
+}
+
+#displayGrid {
+    display: grid;
+}
 
 
 .dialogHeader,
@@ -458,7 +465,7 @@ footer {
     left: 0;
     margin-left: auto;
     margin-right: auto;
-    top: 50%;
+    top: 10%;
     /* previously 16% */
     z-index: 2;
     width: 400px;
