@@ -176,14 +176,13 @@ dialog>fieldset:last-of-type {
     grid-template: 1fr 1fr / 2fr 1fr;
     align-items: center;
     margin-bottom: 40px;
+}
+
+.displayNone {
     display: none;
 }
 
-#displayNone {
-    display: none;
-}
-
-#displayGrid {
+.displayGrid {
     display: grid;
 }
 

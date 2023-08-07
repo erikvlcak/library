@@ -43,18 +43,48 @@ BookTemplate.prototype.deleteBook = function (deletedIndex) {
     libraryDisplay.innerHTML = '';
 }
 
-// BookTemplate.prototype.changeProgress = function (changedIndex) {
-//     dialog.showModal();
-//     let milestone = dialog.querySelector('fieldset:last-of-type');
-//     milestone.addEventListener('click', () => {
-//         if (milestone.style.getAttribute('display', 'none')) {
-//             milestone.style.display = 'grid';
-//             console.log('hehe')
-//         } else {
-//             milestone.style.display = 'none';
-//         }
-//     })
-// }
+BookTemplate.prototype.changeProgress = function (changedIndex, chosenBook) {
+    dialog.showModal();
+
+    let fieldsetUpdatePage = dialog.querySelector('.fieldsetEdit');
+
+    dialog.querySelector('.progressFinished').addEventListener('click', (e) => {
+        library[changedIndex].currentPage = library[changedIndex].pages;
+        if (library[changedIndex].currentPage = library[changedIndex].pages) {
+            chosenBook.querySelector('.progressNumbers').textContent = 'FINISHED';
+            // libraryDisplay.innerHTML = '';
+            // createLibrary();
+            // dialog.close();
+        }
+    })
+
+    dialog.querySelector('.progressChanged').addEventListener('click', () => {
+
+        if (fieldsetUpdatePage.classList.contains('displayNone')) {
+            fieldsetUpdatePage.classList.replace('displayNone', 'displayGrid');
+        } else {
+            fieldsetUpdatePage.classList.replace('displayGrid', 'displayNone');
+        }
+
+
+        dialog.querySelector('.numberPageOld').textContent = library[changedIndex].currentPage;
+    })
+
+    dialog.querySelector('.changeSave').addEventListener('click', () => {
+        if ((fieldsetUpdatePage.style.display == 'grid') && (dialog.querySelector('#numberPageNew').value < library[changedIndex].pages)) {
+            library[changedIndex].currentPage = dialog.querySelector('#numberPageNew').value;
+
+        }
+        else if (dialog.querySelector('#numberPageNew').value == library[changedIndex].pages) {
+
+        }
+        fieldsetUpdatePage.style.display = 'none';
+        libraryDisplay.innerHTML = '';
+        createLibrary();
+
+        dialog.close();
+    })
+}
 
 //change styles of 'have you finished reading' items
 newReadStatus.forEach(item => {
@@ -94,6 +124,7 @@ addBook.addEventListener('click', (e) => {
     libraryDisplay.innerHTML = '';
     createLibrary();
     clearValues();
+
 })
 
 //show or hide sidebar
@@ -112,19 +143,22 @@ btnHideSide.addEventListener('click', (e) => {
 })
 
 libraryDisplay.addEventListener('mouseenter', () => {
+
     if (library) {
         document.querySelectorAll('.book').forEach(item => {
             item.addEventListener('click', (e) => {
+                let chosenBook = e.target.parentElement.parentElement;
                 if (e.target.classList.contains('btnRemoveBook')) {
                     library[getBookIndex(e)].deleteBook(getBookIndex(e));
                     createLibrary();
                 } else if (e.target.classList.contains('btnChangeProgress')) {
-                    library[getBookIndex(e)].changeProgress(getBookIndex(e));
+                    library[getBookIndex(e)].changeProgress(getBookIndex(e), chosenBook);
                 }
             });
         });
     }
-});
+}
+);
 
 
 function calculateProgress(currentPage, totalPages) {
@@ -219,10 +253,11 @@ function createLibrary() {
             topSection.appendChild(progressUpdateBtn);
             progressBar.classList.add('progressBar');
             progressNumbers.classList.add('progressNumbers');
-            progressNumbers.setAttribute('contenteditable', 'true');
             progress.classList.add('progress');
+
             progressNumbers.textContent = `${item.currentPage} / ${item.pages}`;
             progressBar.style.width = calculateProgress(item.currentPage, item.pages);
+
             progress.appendChild(progressBar);
             progress.appendChild(progressNumbers);
             bookDiv.appendChild(progress);
@@ -239,5 +274,6 @@ function clearValues() {
 }
 
 dialog.querySelector('.changeClose').addEventListener('click', (e) => {
+    dialog.querySelector('.fieldsetEdit').style.display = 'none';
     dialog.close();
 })
