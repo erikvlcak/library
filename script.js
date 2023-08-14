@@ -50,20 +50,25 @@ BookTemplate.prototype.changeProgress = function (changedIndex, chosenBook) {
 
     dialog.querySelector('.progressFinished').addEventListener('click', (e) => {
         library[changedIndex].currentPage = library[changedIndex].pages;
-        if (library[changedIndex].currentPage = library[changedIndex].pages) {
-            chosenBook.querySelector('.progressNumbers').textContent = 'FINISHED';
-            // libraryDisplay.innerHTML = '';
-            // createLibrary();
-            // dialog.close();
-        }
+        e.target.style.backgroundColor = 'gold';
+        dialog.querySelector('.progressChanged').style.backgroundColor = '#f7eeee';
+        fieldsetUpdatePage.classList.replace('displayGrid', 'displayNone');
+        fieldsetUpdatePage.style.display = 'none'
+        dialog.querySelector('.progressChanged').style.backgroundColor = '#f7eeee';
+
+
     })
 
-    dialog.querySelector('.progressChanged').addEventListener('click', () => {
-
+    dialog.querySelector('.progressChanged').addEventListener('click', (e) => {
+        dialog.querySelector('.progressFinished').style.backgroundColor = '#f7eeee';
         if (fieldsetUpdatePage.classList.contains('displayNone')) {
             fieldsetUpdatePage.classList.replace('displayNone', 'displayGrid');
+            fieldsetUpdatePage.style.display = 'grid';
+            e.target.style.backgroundColor = 'gold';
         } else {
             fieldsetUpdatePage.classList.replace('displayGrid', 'displayNone');
+            fieldsetUpdatePage.style.display = 'none'
+            e.target.style.backgroundColor = '#f7eeee';
         }
 
 
@@ -73,15 +78,16 @@ BookTemplate.prototype.changeProgress = function (changedIndex, chosenBook) {
     dialog.querySelector('.changeSave').addEventListener('click', () => {
         if ((fieldsetUpdatePage.style.display == 'grid') && (dialog.querySelector('#numberPageNew').value < library[changedIndex].pages)) {
             library[changedIndex].currentPage = dialog.querySelector('#numberPageNew').value;
-
         }
-        else if (dialog.querySelector('#numberPageNew').value == library[changedIndex].pages) {
-
+        else if ((fieldsetUpdatePage.style.display == 'grid') && (dialog.querySelector('#numberPageNew').value == library[changedIndex].pages)) {
+            library[changedIndex].currentPage = library[changedIndex].pages;
         }
         fieldsetUpdatePage.style.display = 'none';
+        dialog.querySelectorAll('.dialogBtns button').forEach(item => {
+            item.style.backgroundColor = '#f7eeee';
+        })
         libraryDisplay.innerHTML = '';
         createLibrary();
-
         dialog.close();
     })
 }
@@ -111,7 +117,10 @@ newReadStatus.forEach(item => {
 
 //add new book as an object to library array via BookTemplate constructor function
 addBook.addEventListener('click', (e) => {
-    e.preventDefault();
+
+    //INPUTY MUSIA MAT VALUE inak nespravi knihu
+
+    // e.preventDefault();
     let id = library.length + 1;
     let title = newTitle.value;
     let author = newAuthor.value;
@@ -244,7 +253,7 @@ function createLibrary() {
         bookDiv.appendChild(statusDiv);
 
         readBtn.classList.add('btnChangeReadStatusBook');
-        if (item.readStatus == 1) {
+        if ((item.readStatus == 1) || (item.pages == item.currentPage)) {
             readBtn.textContent = 'Finished!';
             bookDiv.appendChild(readBtn);
         } else if (item.readStatus == 0) {

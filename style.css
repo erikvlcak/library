@@ -126,22 +126,27 @@ body {
 .btnRemoveBook {
     width: fit-content;
     font-size: 1.2rem;
-    background-color: #C1666B;
+    background-color: #c1666a00;
     color: white;
-    opacity: 0.5;
-    transition: opacity 0.3s;
+
+    transition: background-color 0.5s;
     grid-area: 1 / 2 / 2 / 3;
 }
 
 .btnRemoveBook:hover {
-    opacity: 1;
+    background-color: #C1666B;
 }
 
 .btnChangeProgress {
     width: fit-content;
     font-size: 1.2rem;
-    background-color: var(--color-yellow);
+    background-color: #d4b48300;
     color: white;
+    transition: background-color 0.5s;
+}
+
+.btnChangeProgress:hover {
+    background-color: #D4B483;
 }
 
 form {

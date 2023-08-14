@@ -25,7 +25,7 @@
 
         <!-- add class hidden -->
         <section class="create hidden">
-            <form action="" method="post">
+            <form action="#" method="get">
                 <h2>Add new book</h2>
                 <fieldset class="fieldAdd">
                     <legend>Details about your book</legend>
@@ -36,10 +36,10 @@
                         <input type="text" name="author" id="newAuthor" required />
                         <label for="newGenre">Genre</label>
                         <select name="genre" id="newGenre">
-                            <option value="Action Adventure" selected>
+                            <option value="Action Adventure">
                                 Action Adventure
                             </option>
-                            <option value="Comic" con>Comic Book</option>
+                            <option value="Comic">Comic Book</option>
                             <option value="Detective">Detective</option>
                             <option value="Drama">Drama</option>
                             <option value="Erotic">Erotic Novel</option>
@@ -50,7 +50,7 @@
                             <option value="Young Adults">Young Adults</option>
                         </select>
                         <label for="newPages">Pages</label>
-                        <input type="number" name="pages" id="newPages" placeholder="0" required />
+                        <input type="number" name="pages" id="newPages" placeholder="0" min="0" required />
                     </ul>
                 </fieldset>
 
@@ -65,7 +65,7 @@
                 </fieldset>
 
                 <div class="btnsForm">
-                    <button class="btnAddBook">Add Book to Library</button>
+                    <button type="submit" class="btnAddBook">Add Book to Library</button>
                     <button type="reset" class="btnResetForm">Reset</button>
                 </div>
             </form>
@@ -77,7 +77,7 @@
                 <div class="bookSummary">Book info</div>
             </div>
 
-            <fieldset>
+            <fieldset class="dialogBtns">
                 <legend>What has changed?</legend>
                 <button class="progressFinished">
                     Finished the book!
