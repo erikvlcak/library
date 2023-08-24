@@ -13,6 +13,8 @@ let newGenre = document.querySelector('#newGenre');
 let newCurrentPage = document.querySelector('#currentPage');
 let newReadStatus = document.querySelectorAll('.btnsReadIt');
 let newReadSelected = null;
+let sidebar = document.querySelector('.create');
+let hideBtn = document.querySelector('.btnHideSidebar');
 
 function BookTemplate(id, title, author, pages, genre, readStatus, currentPage) {
     this.id = id;
@@ -103,6 +105,9 @@ newReadStatus.forEach(item => {
             newReadSelected = 1;
             document.querySelector('.labelCurrentPage').style.opacity = 0.5;
             document.querySelector('#currentPage').disabled = true;
+            document.querySelector('.labelCurrentPage').style.display = 'none';
+            document.querySelector('#currentPage').style.display = 'none';
+            document.querySelector('.btnsReadIt').style.gridTemplateRows = 'none';
         } else if (e.target.classList.contains('readNo')) {
             e.target.style.backgroundColor = 'gold';
             e.target.style.opacity = '1'
@@ -111,6 +116,9 @@ newReadStatus.forEach(item => {
             document.querySelector('.labelCurrentPage').style.opacity = 1;
             document.querySelector('#currentPage').disabled = false;
             newReadSelected = 0;
+            document.querySelector('.labelCurrentPage').style.display = 'block';
+            document.querySelector('#currentPage').style.display = 'block';
+            document.querySelector('.btnsReadIt').style.gridTemplateRows = 'repeat(3, 1fr)';
         }
     })
 })
@@ -118,38 +126,93 @@ newReadStatus.forEach(item => {
 //add new book as an object to library array via BookTemplate constructor function
 addBook.addEventListener('click', (e) => {
 
-    //INPUTY MUSIA MAT VALUE inak nespravi knihu
+    console.log(verification())
+    if (verification()) {
+        e.preventDefault();
+        let id = library.length + 1;
+        let title = newTitle.value;
+        let author = newAuthor.value;
+        let pages = newPages.value;
+        let genre = newGenre.value;
+        let readStatus = newReadSelected;
+        let currentPage = newCurrentPage.value;
+        let newBook = new BookTemplate(id, title, author, pages, genre, readStatus, currentPage);
+        library.push(newBook);
+        libraryDisplay.innerHTML = '';
+        createLibrary();
+    }
 
-    // e.preventDefault();
-    let id = library.length + 1;
-    let title = newTitle.value;
-    let author = newAuthor.value;
-    let pages = newPages.value;
-    let genre = newGenre.value;
-    let readStatus = newReadSelected;
-    let currentPage = newCurrentPage.value;
-    let newBook = new BookTemplate(id, title, author, pages, genre, readStatus, currentPage);
-    library.push(newBook);
-    libraryDisplay.innerHTML = '';
-    createLibrary();
-    clearValues();
 
+
+
+})
+
+function resetSidebar() {
+    let btnsYesNo = document.querySelectorAll('.btnsReadIt button');
+    let sidebarInputs = sidebar.querySelectorAll('input');
+    let sidebarSelect = sidebar.querySelector('select');
+    // let btnReset = sidebar.querySelector('.btnResetForm');
+    document.addEventListener('click', (e) => {
+        if ((e.target.classList.contains('btnResetForm')) || (e.target.classList.contains('btnHideSidebar')) ||
+            (e.target.classList.contains('btnSideBar')) || ((e.target.classList.contains('btnAddBook')) && (verification()))) {
+            btnsYesNo.forEach(item => {
+                item.style.opacity = 1;
+                item.style.backgroundColor = '#f7eeee';
+            })
+            sidebarInputs.forEach(item => {
+                item.value = '';
+            })
+            sidebarSelect.value = 'Action Adventure';
+            document.querySelector('.labelCurrentPage').style.display = 'none';
+            document.querySelector('#currentPage').style.display = 'none';
+            document.querySelector('.btnsReadIt').style.gridTemplateRows = 'none';
+        }
+    })
+
+}
+
+function verification() {
+    let ok = 0;
+    sidebar.querySelectorAll('.formItems input').forEach(item => {
+        if (item.value != '') {
+            ++ok
+        }
+    })
+    if (ok == 3) {
+        return 1
+    } else {
+        return
+    }
+}
+
+
+
+hideBtn.addEventListener('click', () => {
+    sidebar.classList.add('hidden');
+    libraryDisplay.style.gridArea = '2/1/3/3';
+    btnHideSide.textContent = 'Add New Book';
+    resetSidebar()
 })
 
 //show or hide sidebar
 btnHideSide.addEventListener('click', (e) => {
 
-    let sidebar = document.querySelector('.create');
-
-    if (sidebar.classList.contains('hidden')) {
+    if (sidebar.classList.contains('hidden')) { //if open then close
         sidebar.classList.remove('hidden')
         e.target.textContent = 'Hide Sidebar';
-    } else {
+        libraryDisplay.style.gridArea = '2/1/3/2'
+
+    } else { //if close then open
         sidebar.classList.add('hidden');
         e.target.textContent = 'Add New Book';
+        libraryDisplay.style.gridArea = '2/1/3/3';
     }
+    resetSidebar();
+}
+)
 
-})
+
+
 
 libraryDisplay.addEventListener('mouseenter', () => {
 
@@ -274,12 +337,6 @@ function createLibrary() {
 
         libraryDisplay.appendChild(bookDiv);
     }
-}
-
-function clearValues() {
-    newTitle.value = '';
-    newAuthor.value = '';
-    newPages.value = '';
 }
 
 dialog.querySelector('.changeClose').addEventListener('click', (e) => {
