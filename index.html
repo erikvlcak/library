@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="../normalize.css" />
+    <!-- <link rel="stylesheet" href="../normalize.css" /> -->
     <script src="script.js" async></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,9 +16,9 @@
 
 <body>
     <article>
-        <button class="btnSideBar">Add New Book</button>
         <header>
             <h1>My personal library</h1>
+            <button class="btnSideBar">Add New Book</button>
         </header>
 
         <section id="library"></section>
@@ -50,7 +50,7 @@
                             <option value="Young Adults">Young Adults</option>
                         </select>
                         <label for="newPages">Pages</label>
-                        <input type="number" name="pages" id="newPages" placeholder="0" min="0" required />
+                        <input type="number" name="pages" id="newPages" min="1" required />
                     </ul>
                 </fieldset>
 
@@ -67,6 +67,7 @@
                 <div class="btnsForm">
                     <button type="submit" class="btnAddBook">Add Book to Library</button>
                     <button type="reset" class="btnResetForm">Reset</button>
+                    <button type="button" class="btnHideSidebar">Hide Sidebar</button>
                 </div>
             </form>
         </section>
