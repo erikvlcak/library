@@ -7,7 +7,7 @@
     <title>Library</title>
     <link rel="stylesheet" href="style.css" />
     <!-- <link rel="stylesheet" href="../normalize.css" /> -->
-    <script src="script.js" async></script>
+    <script src="script.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Inter:wght@400;600;700&display=swap"
@@ -60,7 +60,7 @@
                         <button type="button" class="readYes">Yes</button>
                         <button type="button" class="readNo">No</button>
                         <label for="currentPage" class="labelCurrentPage">On which page are you currently?</label>
-                        <input type="number" id="currentPage" name="currentPage" placeholder="0" disabled />
+                        <input type="number" id="currentPage" name="currentPage" min="1" disabled required />
                     </ul>
                 </fieldset>
 

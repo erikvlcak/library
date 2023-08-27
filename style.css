@@ -6,14 +6,14 @@
     --color-red: #C1666B;
     --border-thin: 3px solid white;
     --border-thick: 8px solid white;
-
+    --border-red: 3px solid var(--color-red);
     box-sizing: border-box;
     --width: 550px;
 }
 
-* {
+/* * {
     border: 2px solid red;
-}
+} */
 
 body {
     background-color: var(--color-green);
@@ -70,10 +70,10 @@ h1 {
     border: var(--border-thick);
     border-radius: 20px;
     box-shadow: 10px 10px 10px black;
-    font-size: 2rem;
+    font-size: 2.2rem;
     text-shadow: black 2px 2px;
     white-space: pre-line;
-    padding: 30px;
+    padding: 15px;
     margin: 30px 0px;
     font-weight: 900;
     transition: background-color 0.5s, box-shadow 0.5s;
@@ -111,7 +111,16 @@ h1 {
     align-self: center;
     width: min-content;
     white-space: pre;
+    box-shadow: none;
+    border: 5px solid var(--color-red);
+    background-color: #7586d1;
+    color: white;
+    padding: 20px;
+    font-size: 2.5rem;
+    transition: background-color 0.3s, color 0.3s;
 }
+
+
 
 .bookNumber {
     margin: 15px 0px;
@@ -127,11 +136,7 @@ h1 {
     text-shadow: black 1.5px 1.5px;
     margin-top: 30px;
     margin-bottom: 10px;
-}
-
-.btnChangeReadStatusBook {
-    width: fit-content;
-    margin-bottom: 20px;
+    text-shadow: black 2px 2px;
 }
 
 .btnRemoveBook {
@@ -269,13 +274,11 @@ legend {
 
 .readYes {
     grid-area: 1 / 1 / 2 / 2;
-
     width: 80%;
 }
 
 .readNo {
     grid-area: 1 / 2 / 2 / 3;
-
     width: 80%;
 }
 
@@ -451,6 +454,7 @@ button {
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 2rem;
+    margin-top: 100px;
 
 }
 
@@ -470,8 +474,6 @@ footer {
 }
 
 .btnSideBar {
-
-
     background-color: var(--color-green);
     color: white;
     box-shadow: 5px 5px 10px black;
@@ -499,7 +501,8 @@ footer {
 .formItems>select,
 .fieldAdd,
 .fieldFinished,
-#numberPageNew {
+#numberPageNew,
+#currentPage {
     border-radius: 15px;
     border: var(--border-thin);
     box-shadow: black 3px 3px 5px;
@@ -508,17 +511,8 @@ footer {
     font-size: 1.5rem;
 }
 
-#numberPageNew {
+#numberPageNew,
+#currentPage {
     width: 70px;
     text-align: center;
 }
-
-/* .fieldAdd,
-.fieldFinished {
-    transition: box-shadow 0.5s;
-}
-
-.fieldAdd:hover,
-.fieldFinished:hover {
-    box-shadow: black 10px 10px 10px;
-} */
