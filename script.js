@@ -70,10 +70,10 @@ function getBookIndex(e) {
 
 BookTemplate.prototype.changeProgress = function (changedIndex) {
 
+    dialog.querySelector('.bookSummary').textContent = `${library[changedIndex].title}, written by ${library[changedIndex].author}.`
     dialog.showModal();
 
     let fieldsetUpdatePage = dialog.querySelector('.fieldsetEdit');
-
     let dialogEventsInitialized = false;
 
     dialog.addEventListener('click', (e) => {
@@ -83,47 +83,57 @@ BookTemplate.prototype.changeProgress = function (changedIndex) {
             return;
         }
 
-        if (e.target.classList.contains('progressFinished')) {
+        fieldsetUpdatePage.classList.add('displayNone');
+
+
+
+        if ((e.target.classList.contains('progressFinished'))) {
 
 
             library[changedIndex].currentPage = library[changedIndex].pages;
             e.target.style.backgroundColor = 'gold';
             dialog.querySelector('.progressChanged').style.backgroundColor = '#f7eeee';
-            fieldsetUpdatePage.classList.replace('displayGrid', 'displayNone');
-            fieldsetUpdatePage.style.display = 'none'
+            fieldsetUpdatePage.classList.remove('displayGrid');
+            fieldsetUpdatePage.classList.add('displayNone');
+            fieldsetUpdatePage.style.display = 'none';
             dialog.querySelector('.progressChanged').style.backgroundColor = '#f7eeee';
         }
 
         if (e.target.classList.contains('progressChanged')) {
 
 
-            dialog.querySelector('.progressFinished').style.backgroundColor = '#f7eeee';
             if (fieldsetUpdatePage.classList.contains('displayNone')) {
-                fieldsetUpdatePage.classList.replace('displayNone', 'displayGrid');
+                dialog.querySelector('.progressFinished').style.backgroundColor = '#f7eeee';
+                fieldsetUpdatePage.classList.remove('displayNone');
+                fieldsetUpdatePage.classList.add('displayGrid');
                 fieldsetUpdatePage.style.display = 'grid';
                 e.target.style.backgroundColor = 'gold';
-            } else {
-                fieldsetUpdatePage.classList.replace('displayGrid', 'displayNone');
+            } else if (fieldsetUpdatePage.classList.contains('displayGrid')) {
+                fieldsetUpdatePage.classList.remove('displayGrid');
+                fieldsetUpdatePage.classList.add('displayNone');
                 fieldsetUpdatePage.style.display = 'none';
                 e.target.style.backgroundColor = '#f7eeee';
             }
+
             dialog.querySelector('.numberPageOld').textContent = library[changedIndex].currentPage;
+            dialog.querySelector('#numberPageNew').value = +dialog.querySelector('.numberPageOld').textContent + 1;
+            dialog.querySelector('#numberPageNew').setAttribute('min', +dialog.querySelector('.numberPageOld').textContent + 1);
+            dialog.querySelector('#numberPageNew').setAttribute('max', +library[changedIndex].pages);
+
         }
 
         if (e.target.classList.contains('changeSave')) {
 
-            console.log('progress change saving')
-            console.log(changedIndex)
+            fieldsetUpdatePage.querySelector('.numberPageOld').textContent = (+(dialog.querySelector('#numberPageNew').value));
 
-            console.log(`toto cislo ${dialog.querySelector('#numberPageNew').value}`)
-            console.log(`je mensie nez toto cislo ${library[changedIndex].pages}`)
+
             if ((fieldsetUpdatePage.style.display == 'grid') && (+(dialog.querySelector('#numberPageNew').value) < library[changedIndex].pages)) {
                 library[changedIndex].currentPage = +(dialog.querySelector('#numberPageNew').value);
-                console.log(`rrr`)
+
             }
             if ((fieldsetUpdatePage.style.display == 'grid') && (+(dialog.querySelector('#numberPageNew').value) == library[changedIndex].pages)) {
-                library[changedIndex].currentPage = library[changedIndex].pages;
-                console.log(`fff`)
+                library[changedIndex].currentPage = +library[changedIndex].pages;
+
             }
             dialogEventsInitialized = true;
             fieldsetUpdatePage.style.display = 'none';
@@ -131,6 +141,11 @@ BookTemplate.prototype.changeProgress = function (changedIndex) {
             console.table(library)
             createLibrary();
             dialog.close();
+        }
+
+        if (e.target.classList.contains('changeClose')) {
+            fieldsetUpdatePage.classList.remove('displayNone');
+            fieldsetUpdatePage.classList.remove('displayGrid');
         }
     })
 }
@@ -207,16 +222,13 @@ newReadStatus.forEach(item => {
             document.querySelector('.btnsReadIt').style.gridTemplateRows = 'repeat(3, 1fr)';
             let currentPage = document.querySelector('#currentPage');
             let totalPageValue = document.querySelector('#newPages').value;
-            currentPage.setAttribute('max', totalPageValue);
+            currentPage.setAttribute('max', totalPageValue - 1);
             newReadSelected = 'no';
         }
     })
 })
 
-// document.querySelector('#currentPage').addEventListener('input', () => {
-//     newReadSelected = 'no';
-//     console.log('inpuuut')
-// })
+
 
 //add new book as an object to library array via BookTemplate constructor function
 
