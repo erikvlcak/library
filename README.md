@@ -1,6 +1,6 @@
 # Your personal library
 
-Managing your book library has never been easier.
+Managing your library has never been easier.
 
 Main features:
 
