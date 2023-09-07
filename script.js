@@ -116,8 +116,8 @@ BookTemplate.prototype.changeProgress = function (changedIndex) {
             }
 
             dialog.querySelector('.numberPageOld').textContent = library[changedIndex].currentPage;
-            dialog.querySelector('#numberPageNew').value = +dialog.querySelector('.numberPageOld').textContent + 1;
-            dialog.querySelector('#numberPageNew').setAttribute('min', +dialog.querySelector('.numberPageOld').textContent + 1);
+            dialog.querySelector('#numberPageNew').value = +dialog.querySelector('.numberPageOld').textContent;
+            dialog.querySelector('#numberPageNew').setAttribute('min', +dialog.querySelector('.numberPageOld').textContent);
             dialog.querySelector('#numberPageNew').setAttribute('max', +library[changedIndex].pages);
 
         }
