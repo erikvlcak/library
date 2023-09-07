@@ -11,9 +11,9 @@
     --width: 550px;
 }
 
-/* * {
+* {
     border: 2px solid red;
-} */
+}
 
 body {
     background-color: var(--color-green);
@@ -31,7 +31,7 @@ button {
 h1 {
     margin: 0px;
     padding: 0px;
-    font-size: 6rem;
+    font-size: 4.5rem;
 }
 
 /* .btnsReadIt {
@@ -395,12 +395,12 @@ header {
     border-bottom: var(--border-thin);
     color: white;
     text-shadow: black 2px 2px 5px;
-    font-size: 2.5rem;
+    font-size: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-
+    gap: 15px;
 }
 
 h2 {
