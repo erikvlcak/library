@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="stylesheet" href="../normalize.css" /> -->
+    <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <article>
+        <header>
+            <h1>My personal library</h1>
+            <button class="btnSideBar">Add New Book</button>
+        </header>
+
+        <section id="library"></section>
+
+        <!-- add class hidden -->
+        <section class="create hidden">
+            <form action="#" method="get">
+                <h2>Add new book</h2>
+                <fieldset class="fieldAdd">
+                    <legend>Details about your book</legend>
+                    <ul class="formItems">
+                        <label for="newTitle">Title</label>
+                        <input type="text" name="title" id="newTitle" required />
+                        <label for="newAuthor">Author</label>
+                        <input type="text" name="author" id="newAuthor" required />
+                        <label for="newGenre">Genre</label>
+                        <select name="genre" id="newGenre">
+                            <option value="Action Adventure">
+                                Action Adventure
+                            </option>
+                            <option value="Comic">Comic Book</option>
+                            <option value="Detective">Detective story</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Erotic">Erotic Novel</option>
+                            <option value="Fantasy">Fantasy story</option>
+                            <option value="Historical">Historical Novel</option>
+                            <option value="Horror">Horror story</option>
+                            <option value="Science Fiction">Sci-Fi story</option>
+                            <option value="Young Adults">Young Adults story</option>
+                        </select>
+                        <label for="newPages">Pages</label>
+                        <input type="number" name="pages" id="newPages" min="1" required />
+                    </ul>
+                </fieldset>
+
+                <fieldset class="fieldFinished">
+                    <legend>Have you finished reading it?</legend>
+                    <ul class="btnsReadIt">
+                        <button type="button" class="readYes">Yes</button>
+                        <button type="button" class="readNo">No</button>
+                        <label for="currentPage" class="labelCurrentPage">On which page are you currently?</label>
+                        <input type="number" id="currentPage" name="currentPage" min="1" disabled required />
+                    </ul>
+                </fieldset>
+
+                <div class="btnsForm">
+                    <button type="submit" class="btnAddBook">Add Book to Library</button>
+                    <button type="reset" class="btnResetForm">Reset</button>
+                    <button type="button" class="btnHideSidebar">Hide Sidebar</button>
+                </div>
+            </form>
+        </section>
+
+        <dialog>
+            <div class="dialogHeader">
+                <div class="header">Update reading progress</div>
+                <div class="bookSummary">Book info</div>
+            </div>
+
+            <fieldset class="dialogBtns">
+                <legend>What has changed?</legend>
+                <button class="progressFinished">
+                    Finished the book!
+                </button>
+                <button class="progressChanged">
+                    Made a progress
+                </button>
+            </fieldset>
+
+            <fieldset class="fieldsetEdit displayNone">
+                <legend>Set new reading milestone</legend>
+                <div class="progressOld">
+                    Previous milestone:
+                </div>
+                <div class="numberPageOld">123</div>
+
+                <label class="progressNew" for="numberPageNew">Enter new milestone: </label>
+                <input type="number" name="newCurrentPage" id="numberPageNew">
+            </fieldset>
+
+            <div class="dialogButtons">
+                <button class="changeSave">
+                    Save change
+                </button>
+                <button class="changeClose">
+                    Return
+                </button>
+            </div>
+
+        </dialog>
+
+        <footer>
+            <div>
+                <div class="footer">Made by <a href="https://github.com/erikvlcak"><i class='bx bxl-github'></i></a><a
+                        href="https://github.com/erikvlcak"> Erik
+                        Vlcak</a>
+                </div>
+            </div>
+        </footer>
+    </article>
+</body>
+
+</html>
