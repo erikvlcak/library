@@ -20,34 +20,31 @@ Main goals:
 - This project was made as a part of the [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-library) curriculum.
 
 Have fun with this library and feel free to leave feedback.
-<<<<<<< HEAD
-=======
 
 # Installation and Setup
 
 Follow these steps to get the project running locally:
 
-Prerequisites
--
+## Prerequisites
+
 Make sure you have a modern web browser installed.
 
-Installation
--
+## Installation
+
 **Clone the repository:**
 
-*git clone https://github.com/erikvlcak/library.git*
+_git clone https://github.com/erikvlcak/library.git_
 
 **Navigate into the project directory:**
 
-*cd library*
+_cd library_
 
 **Open the index.html file:**
 
 You can open the file directly in your browser by double-clicking it or by using a local development server. For example, you can use [VS Code's Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) or run the following command if you have http-server installed globally:
 
-*npx http-server*
+_npx http-server_
 
-Usage
--
+## Usage
+
 Open your browser and go to [http://localhost:8080](http://localhost:8080) (or the port provided by your local server) to view the application.
->>>>>>> 13852820ae7f441f22bfee1dab86f9c0d15562c9

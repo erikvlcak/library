@@ -16,15 +16,7 @@ let newReadSelected = null;
 let sidebar = document.querySelector(".create");
 let hideBtn = document.querySelector(".btnHideSidebar");
 
-function BookTemplate(
-  id,
-  title,
-  author,
-  pages,
-  genre,
-  readStatus,
-  currentPage
-) {
+function BookTemplate(id, title, author, pages, genre, readStatus, currentPage) {
   this.id = id;
   this.title = title;
   this.author = author;
@@ -67,11 +59,7 @@ libraryDisplay.addEventListener("click", (e) => {
 });
 
 function getBookIndex(e) {
-  return (
-    e.parentElement.parentElement
-      .querySelector(".bookNumber")
-      .textContent.slice(1) - 1
-  );
+  return e.parentElement.parentElement.querySelector(".bookNumber").textContent.slice(1) - 1;
 }
 
 BookTemplate.prototype.changeProgress = function (changedIndex) {
@@ -94,19 +82,16 @@ BookTemplate.prototype.changeProgress = function (changedIndex) {
     if (e.target.classList.contains("progressFinished")) {
       library[changedIndex].currentPage = library[changedIndex].pages;
       e.target.style.backgroundColor = "gold";
-      dialog.querySelector(".progressChanged").style.backgroundColor =
-        "#f7eeee";
+      dialog.querySelector(".progressChanged").style.backgroundColor = "#f7eeee";
       fieldsetUpdatePage.classList.remove("displayGrid");
       fieldsetUpdatePage.classList.add("displayNone");
       fieldsetUpdatePage.style.display = "none";
-      dialog.querySelector(".progressChanged").style.backgroundColor =
-        "#f7eeee";
+      dialog.querySelector(".progressChanged").style.backgroundColor = "#f7eeee";
     }
 
     if (e.target.classList.contains("progressChanged")) {
       if (fieldsetUpdatePage.classList.contains("displayNone")) {
-        dialog.querySelector(".progressFinished").style.backgroundColor =
-          "#f7eeee";
+        dialog.querySelector(".progressFinished").style.backgroundColor = "#f7eeee";
         fieldsetUpdatePage.classList.remove("displayNone");
         fieldsetUpdatePage.classList.add("displayGrid");
         fieldsetUpdatePage.style.display = "grid";
@@ -118,37 +103,24 @@ BookTemplate.prototype.changeProgress = function (changedIndex) {
         e.target.style.backgroundColor = "#f7eeee";
       }
 
-      dialog.querySelector(".numberPageOld").textContent =
-        library[changedIndex].currentPage;
-      dialog.querySelector("#numberPageNew").value =
-        +dialog.querySelector(".numberPageOld").textContent;
-      dialog
-        .querySelector("#numberPageNew")
-        .setAttribute(
-          "min",
-          +dialog.querySelector(".numberPageOld").textContent
-        );
-      dialog
-        .querySelector("#numberPageNew")
-        .setAttribute("max", +library[changedIndex].pages);
+      dialog.querySelector(".numberPageOld").textContent = library[changedIndex].currentPage;
+      dialog.querySelector("#numberPageNew").value = +dialog.querySelector(".numberPageOld").textContent;
+      dialog.querySelector("#numberPageNew").setAttribute("min", +dialog.querySelector(".numberPageOld").textContent);
+      dialog.querySelector("#numberPageNew").setAttribute("max", +library[changedIndex].pages);
     }
 
     if (e.target.classList.contains("changeSave")) {
-      fieldsetUpdatePage.querySelector(".numberPageOld").textContent =
-        +dialog.querySelector("#numberPageNew").value;
+      fieldsetUpdatePage.querySelector(".numberPageOld").textContent = +dialog.querySelector("#numberPageNew").value;
 
       if (
         fieldsetUpdatePage.style.display == "grid" &&
-        +dialog.querySelector("#numberPageNew").value <
-          library[changedIndex].pages
+        +dialog.querySelector("#numberPageNew").value < library[changedIndex].pages
       ) {
-        library[changedIndex].currentPage =
-          +dialog.querySelector("#numberPageNew").value;
+        library[changedIndex].currentPage = +dialog.querySelector("#numberPageNew").value;
       }
       if (
         fieldsetUpdatePage.style.display == "grid" &&
-        +dialog.querySelector("#numberPageNew").value ==
-          library[changedIndex].pages
+        +dialog.querySelector("#numberPageNew").value == library[changedIndex].pages
       ) {
         library[changedIndex].currentPage = +library[changedIndex].pages;
       }
@@ -200,8 +172,7 @@ newReadStatus.forEach((item) => {
       document.querySelector("#currentPage").disabled = false;
       document.querySelector(".labelCurrentPage").style.display = "block";
       document.querySelector("#currentPage").style.display = "block";
-      document.querySelector(".btnsReadIt").style.gridTemplateRows =
-        "repeat(3, 1fr)";
+      document.querySelector(".btnsReadIt").style.gridTemplateRows = "repeat(3, 1fr)";
       let currentPage = document.querySelector("#currentPage");
       let totalPageValue = document.querySelector("#newPages").value;
       currentPage.setAttribute("max", totalPageValue - 1);
@@ -222,10 +193,7 @@ function calculateProgress(currentPage, totalPages) {
 }
 
 addBook.addEventListener("click", (e) => {
-  if (
-    newReadSelected == "yes" ||
-    (newReadSelected == "no" && document.querySelector("#currentPage").value)
-  ) {
+  if (newReadSelected == "yes" || (newReadSelected == "no" && document.querySelector("#currentPage").value)) {
     if (verification()) {
       sidebar.querySelector(".fieldAdd").style.border = "var(--border-thin)";
       e.preventDefault();
@@ -236,15 +204,7 @@ addBook.addEventListener("click", (e) => {
       let genre = newGenre.value;
       let readStatus = newReadSelected;
       let currentPage = +newCurrentPage.value;
-      let newBook = new BookTemplate(
-        id,
-        title,
-        author,
-        pages,
-        genre,
-        readStatus,
-        currentPage
-      );
+      let newBook = new BookTemplate(id, title, author, pages, genre, readStatus, currentPage);
       library.push(newBook);
       libraryDisplay.innerHTML = "";
       newReadSelected = null;
@@ -263,7 +223,6 @@ function resetSidebar() {
   let btnsYesNo = document.querySelectorAll(".btnsReadIt button");
   let sidebarInputs = sidebar.querySelectorAll("input");
   let sidebarSelect = sidebar.querySelector("select");
-  // let btnReset = sidebar.querySelector('.btnResetForm');
   document.addEventListener("click", (e) => {
     if (
       e.target.classList.contains("btnResetForm") ||
