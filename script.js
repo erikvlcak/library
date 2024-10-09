@@ -1,20 +1,20 @@
 "use strict";
 
-let btnHideSide = document.querySelector(".btnSideBar");
-let addBook = document.querySelector(".btnAddBook");
-let libraryDisplay = document.querySelector("#library");
+let btnHideSide = document.querySelector(".library__btn--add-book");
+let addBook = document.querySelector(".library__btn--add");
+let libraryDisplay = document.querySelector(".library__content");
 let library = [];
-let dialog = document.querySelector("dialog");
+let dialog = document.querySelector(".library__dialog");
 
-let newTitle = document.querySelector("#newTitle");
-let newAuthor = document.querySelector("#newAuthor");
-let newPages = document.querySelector("#newPages");
-let newGenre = document.querySelector("#newGenre");
-let newCurrentPage = document.querySelector("#currentPage");
-let newReadStatus = document.querySelectorAll(".btnsReadIt");
+let newTitle = document.querySelector(".library__input-newTitle");
+let newAuthor = document.querySelector(".library__input-newAuthor");
+let newPages = document.querySelector(".library__input-newPages");
+let newGenre = document.querySelector(".library__select-newGenre");
+let newCurrentPage = document.querySelector(".library__input--current-page");
+let newReadStatus = document.querySelectorAll(".library__read-options");
 let newReadSelected = null;
-let sidebar = document.querySelector(".create");
-let hideBtn = document.querySelector(".btnHideSidebar");
+let sidebar = document.querySelector(".library__create");
+let hideBtn = document.querySelector(".library__btn--hide-sidebar");
 
 function BookTemplate(id, title, author, pages, genre, readStatus, currentPage) {
   this.id = id;
@@ -64,11 +64,11 @@ function getBookIndex(e) {
 
 BookTemplate.prototype.changeProgress = function (changedIndex) {
   dialog.querySelector(
-    ".bookSummary"
+    ".library__dialog-summary"
   ).textContent = `${library[changedIndex].title}, written by ${library[changedIndex].author}.`;
   dialog.showModal();
 
-  let fieldsetUpdatePage = dialog.querySelector(".fieldsetEdit");
+  let fieldsetUpdatePage = dialog.querySelector(".library__fieldset--edit");
   let dialogEventsInitialized = false;
 
   dialog.addEventListener("click", (e) => {
@@ -79,19 +79,19 @@ BookTemplate.prototype.changeProgress = function (changedIndex) {
 
     fieldsetUpdatePage.classList.add("displayNone");
 
-    if (e.target.classList.contains("progressFinished")) {
+    if (e.target.classList.contains("library__btn--progress-finished")) {
       library[changedIndex].currentPage = library[changedIndex].pages;
       e.target.style.backgroundColor = "gold";
-      dialog.querySelector(".progressChanged").style.backgroundColor = "#f7eeee";
+      dialog.querySelector(".library__btn--progress-changed").style.backgroundColor = "#f7eeee";
       fieldsetUpdatePage.classList.remove("displayGrid");
       fieldsetUpdatePage.classList.add("displayNone");
       fieldsetUpdatePage.style.display = "none";
-      dialog.querySelector(".progressChanged").style.backgroundColor = "#f7eeee";
+      dialog.querySelector(".library__btn--progress-changed").style.backgroundColor = "#f7eeee";
     }
 
-    if (e.target.classList.contains("progressChanged")) {
+    if (e.target.classList.contains("library__btn--progress-changed")) {
       if (fieldsetUpdatePage.classList.contains("displayNone")) {
-        dialog.querySelector(".progressFinished").style.backgroundColor = "#f7eeee";
+        dialog.querySelector(".library__btn--progress-finished").style.backgroundColor = "#f7eeee";
         fieldsetUpdatePage.classList.remove("displayNone");
         fieldsetUpdatePage.classList.add("displayGrid");
         fieldsetUpdatePage.style.display = "grid";
@@ -103,24 +103,29 @@ BookTemplate.prototype.changeProgress = function (changedIndex) {
         e.target.style.backgroundColor = "#f7eeee";
       }
 
-      dialog.querySelector(".numberPageOld").textContent = library[changedIndex].currentPage;
-      dialog.querySelector("#numberPageNew").value = +dialog.querySelector(".numberPageOld").textContent;
-      dialog.querySelector("#numberPageNew").setAttribute("min", +dialog.querySelector(".numberPageOld").textContent);
-      dialog.querySelector("#numberPageNew").setAttribute("max", +library[changedIndex].pages);
+      dialog.querySelector(".library__number-page-old").textContent = library[changedIndex].currentPage;
+      dialog.querySelector(".library__input--new-progress").value =
+        +dialog.querySelector(".library__number-page-old").textContent;
+      dialog
+        .querySelector(".library__input--new-progress")
+        .setAttribute("min", +dialog.querySelector(".library__number-page-old").textContent);
+      dialog.querySelector(".library__input--new-progress").setAttribute("max", +library[changedIndex].pages);
     }
 
-    if (e.target.classList.contains("changeSave")) {
-      fieldsetUpdatePage.querySelector(".numberPageOld").textContent = +dialog.querySelector("#numberPageNew").value;
+    if (e.target.classList.contains("library__btn--save-change")) {
+      fieldsetUpdatePage.querySelector(".library__number-page-old").textContent = +dialog.querySelector(
+        ".library__input--new-progress"
+      ).value;
 
       if (
         fieldsetUpdatePage.style.display == "grid" &&
-        +dialog.querySelector("#numberPageNew").value < library[changedIndex].pages
+        +dialog.querySelector(".library__input--new-progress").value < library[changedIndex].pages
       ) {
-        library[changedIndex].currentPage = +dialog.querySelector("#numberPageNew").value;
+        library[changedIndex].currentPage = +dialog.querySelector(".library__input--new-progress").value;
       }
       if (
         fieldsetUpdatePage.style.display == "grid" &&
-        +dialog.querySelector("#numberPageNew").value == library[changedIndex].pages
+        +dialog.querySelector(".library__input--new-progress").value == library[changedIndex].pages
       ) {
         library[changedIndex].currentPage = +library[changedIndex].pages;
       }
@@ -132,15 +137,15 @@ BookTemplate.prototype.changeProgress = function (changedIndex) {
       dialog.close();
     }
 
-    if (e.target.classList.contains("changeClose")) {
+    if (e.target.classList.contains("library__btn--close-dialog")) {
       fieldsetUpdatePage.classList.remove("displayNone");
       fieldsetUpdatePage.classList.remove("displayGrid");
     }
   });
 };
 
-dialog.querySelector(".changeClose").addEventListener("click", () => {
-  dialog.querySelector(".fieldsetEdit").style.display = "none";
+dialog.querySelector(".library__btn--close-dialog").addEventListener("click", () => {
+  dialog.querySelector(".library__fieldset--edit").style.display = "none";
   dialog.querySelectorAll(".dialogBtns button").forEach((item) => {
     item.style.backgroundColor = "#f7eeee";
   });
@@ -152,30 +157,32 @@ newReadStatus.forEach((item) => {
   item.addEventListener("click", (e) => {
     addBook.disabled = false;
     addBook.style.opacity = 1;
-    if (e.target.classList.contains("readYes")) {
+    if (e.target.classList.contains("library__btn--read-yes")) {
       e.target.style.backgroundColor = "gold";
       e.target.style.opacity = "1";
       e.target.nextElementSibling.style.opacity = 0.5;
       e.target.nextElementSibling.style.backgroundColor = "#f7eeee";
       newReadSelected = "yes";
-      document.querySelector(".labelCurrentPage").style.opacity = 0.5;
-      document.querySelector("#currentPage").disabled = true;
-      document.querySelector(".labelCurrentPage").style.display = "none";
-      document.querySelector("#currentPage").style.display = "none";
-      document.querySelector(".btnsReadIt").style.gridTemplateRows = "none";
-    } else if (e.target.classList.contains("readNo")) {
+      document.querySelector(".library__label--current-page").style.opacity = 0.5;
+      document.querySelector(".library__input--current-page").disabled = true;
+      document.querySelector(".library__label--current-page").style.display = "none";
+      document.querySelector(".library__input--current-page").style.display = "none";
+      document.querySelector(".library__read-options").style.gridTemplateRows = "none";
+    } else if (e.target.classList.contains("library__btn--read-no")) {
       e.target.style.backgroundColor = "gold";
       e.target.style.opacity = "1";
       e.target.previousElementSibling.style.opacity = 0.5;
       e.target.previousElementSibling.style.backgroundColor = "#f7eeee";
-      document.querySelector(".labelCurrentPage").style.opacity = 1;
-      document.querySelector("#currentPage").disabled = false;
-      document.querySelector(".labelCurrentPage").style.display = "block";
-      document.querySelector("#currentPage").style.display = "block";
-      document.querySelector(".btnsReadIt").style.gridTemplateRows = "repeat(3, 1fr)";
-      let currentPage = document.querySelector("#currentPage");
-      let totalPageValue = document.querySelector("#newPages").value;
-      currentPage.setAttribute("max", totalPageValue - 1);
+      document.querySelector(".library__label--current-page").style.opacity = 1;
+      document.querySelector(".library__input--current-page").disabled = false;
+      document.querySelector(".library__label--current-page").style.display = "block";
+      document.querySelector(".library__input--current-page").style.display = "block";
+      document.querySelector(".library__read-options").style.gridTemplateRows = "repeat(3, 1fr)";
+      let currentPage = document.querySelector(".library__input--current-page");
+      let totalPage = document.querySelector("#newPages");
+      totalPage.setAttribute("min", 1);
+      currentPage.setAttribute("max", totalPage.value - 1);
+      currentPage.setAttribute("min", 0);
       newReadSelected = "no";
     }
   });
@@ -193,9 +200,12 @@ function calculateProgress(currentPage, totalPages) {
 }
 
 addBook.addEventListener("click", (e) => {
-  if (newReadSelected == "yes" || (newReadSelected == "no" && document.querySelector("#currentPage").value)) {
+  if (
+    newReadSelected == "yes" ||
+    (newReadSelected == "no" && document.querySelector(".library__input--current-page").value)
+  ) {
     if (verification()) {
-      sidebar.querySelector(".fieldAdd").style.border = "var(--border-thin)";
+      sidebar.querySelector(".library__fieldset--details").style.border = "var(--border-thin)";
       e.preventDefault();
       let id = library.length + 1;
       let title = newTitle.value;
@@ -214,21 +224,21 @@ addBook.addEventListener("click", (e) => {
       addBook.style.opacity = 0.5;
     }
   } else {
-    sidebar.querySelector(".fieldAdd").style.border = "var(--border-red)";
+    sidebar.querySelector(".library__fieldset--details").style.border = "var(--border-red)";
     console.log("nevybral si yes ani no");
   }
 });
 
 function resetSidebar() {
-  let btnsYesNo = document.querySelectorAll(".btnsReadIt button");
+  let btnsYesNo = document.querySelectorAll(".library__read-options button");
   let sidebarInputs = sidebar.querySelectorAll("input");
   let sidebarSelect = sidebar.querySelector("select");
   document.addEventListener("click", (e) => {
     if (
-      e.target.classList.contains("btnResetForm") ||
-      e.target.classList.contains("btnHideSidebar") ||
-      e.target.classList.contains("btnSideBar") ||
-      (e.target.classList.contains("btnAddBook") && verification())
+      e.target.classList.contains("library__btn--reset") ||
+      e.target.classList.contains("library__btn--hide-sidebar") ||
+      e.target.classList.contains("library__btn--add-book") ||
+      (e.target.classList.contains("library__btn--add") && verification())
     ) {
       btnsYesNo.forEach((item) => {
         item.style.opacity = 1;
@@ -238,9 +248,9 @@ function resetSidebar() {
         item.value = "";
       });
       sidebarSelect.value = "Action Adventure";
-      document.querySelector(".labelCurrentPage").style.display = "none";
-      document.querySelector("#currentPage").style.display = "none";
-      document.querySelector(".btnsReadIt").style.gridTemplateRows = "none";
+      document.querySelector(".library__label--current-page").style.display = "none";
+      document.querySelector(".library__input--current-page").style.display = "none";
+      document.querySelector(".library__read-options").style.gridTemplateRows = "none";
 
       addBook.disabled = true;
       addBook.style.opacity = 0.5;
@@ -250,7 +260,7 @@ function resetSidebar() {
 
 function verification() {
   let ok = 0;
-  sidebar.querySelectorAll(".formItems input").forEach((item) => {
+  sidebar.querySelectorAll(".library__form-items input").forEach((item) => {
     if (item.value != "") {
       ++ok;
     }
