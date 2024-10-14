@@ -1,3 +1,8 @@
+/* * {
+use for debugging
+  border: 1px solid red;
+} */
+
 :root {
   --color-blue: #7586d1;
   --color-green: #48a9a6;
@@ -10,10 +15,6 @@
   box-sizing: border-box;
   --width: 550px;
   overflow-y: visible;
-}
-
-* {
-  border: 1px solid red;
 }
 
 body {
