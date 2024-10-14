@@ -214,6 +214,9 @@ addBook.addEventListener("click", (e) => {
       let genre = newGenre.value;
       let readStatus = newReadSelected;
       let currentPage = +newCurrentPage.value;
+      if (+newCurrentPage.value > +newPages.value) {
+        currentPage = pages;
+      }
       let newBook = new BookTemplate(id, title, author, pages, genre, readStatus, currentPage);
       library.push(newBook);
       libraryDisplay.innerHTML = "";
@@ -225,7 +228,6 @@ addBook.addEventListener("click", (e) => {
     }
   } else {
     sidebar.querySelector(".library__fieldset--details").style.border = "var(--border-red)";
-    console.log("nevybral si yes ani no");
   }
 });
 
@@ -266,9 +268,9 @@ function verification() {
     }
   });
   if (ok == 3) {
-    return 1;
+    return true;
   } else {
-    return;
+    return false;
   }
 }
 
